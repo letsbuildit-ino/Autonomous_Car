@@ -1,6 +1,6 @@
 import pygame
 import requests
-URL = "http://192.168.1.7"
+URL = "http://XYZ.XYZ.X.Y" # replace it with your url on which esp 32 is sending/receiving data
 
 def init():
     pygame.init()

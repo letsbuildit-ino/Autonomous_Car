@@ -3,6 +3,7 @@ import numpy as np
 import time
 import requests
 import urllib.request
+# import controller as cmt
 
 URL = "http://xyz.xyz.x.y" # change this URL to what is assigned to your ESP32!!
 RES = "/cam-hi.jpg"
@@ -14,19 +15,17 @@ def f(x):
     # any operation
     pass
 
-# stop the car initially
 requests.get(URL + "/S")
 
 pTime = 0
 
 cv2.namedWindow("Trackbars")
 cv2.createTrackbar("L-H", "Trackbars", 0, 180, f)
-cv2.createTrackbar("L-S", "Trackbars", 0, 255, f)
-cv2.createTrackbar("L-V", "Trackbars", 71, 255, f)
-cv2.createTrackbar("U-H", "Trackbars", 31, 180, f)
-cv2.createTrackbar("U-S", "Trackbars", 255, 255, f)
+cv2.createTrackbar("L-S", "Trackbars", 78, 255, f)
+cv2.createTrackbar("L-V", "Trackbars", 191, 255, f)
+cv2.createTrackbar("U-H", "Trackbars", 180, 180, f)
+cv2.createTrackbar("U-S", "Trackbars", 217, 255, f)
 cv2.createTrackbar("U-V", "Trackbars", 255, 255, f)
-
 font = cv2.FONT_HERSHEY_PLAIN
 
 while True:
@@ -76,6 +75,7 @@ while True:
 
         i = 0
         if area > 400:
+            print(area)
             #print(approx)
             if len(approx) == 7:
                 acord=[]
@@ -114,12 +114,9 @@ while True:
                         #print(int(slope))
                         #cv2.putText(frame, str(int(slope)), (x, y), font, 1, (0, 0, 0))
                     i = i + 1
-                ans=str(int(np.degrees(np.arctan((y2-y1)/(x2-x1)))))
-                #print(ans)
-                total = int(ans)
+                total=str(int(np.degrees(np.arctan((y2-y1)/(x2-x1)))))
 
-                if ans == None:
-                    print("nothing")
+                if area<30000 and area>25000:
 
                     if total >= 1 and total < 37:
                         print("extreme left")
@@ -134,12 +131,12 @@ while True:
                     elif total >= 72 and total <= 90:
                         print("forward")
                         cv2.putText(frame, "forward", (20, 70), font, 5, (255, 0, 0), 5)
-                        requests.get(URL + "/F")
+                        requests.get(URL + "/X")
 
                     elif total >= -89 and total < -72:
                         print("forward")
                         cv2.putText(frame, "forward", (20, 70), font, 5, (255, 0, 0), 5)
-                        requests.get(URL + "/F")
+                        requests.get(URL + "/X")
 
                     elif total >=  -72 and total < -37:
                         print("right")
@@ -155,6 +152,8 @@ while True:
                         print("stop")
                         cv2.putText(frame, "stop", (20, 70), font, 5, (255, 0, 0), 5)
                         requests.get(URL + "/S")
+                else:
+                    requests.get(URL + "/F")
 
     cv2.imshow("live transmission", frame)
     cv2.imshow("Mask", mask)
@@ -162,4 +161,5 @@ while True:
     key = cv2.waitKey(1)
     if cv2.waitKey(1) & 0xFF==ord('q'):
         break
+        
 cv2.destroyAllWindows()

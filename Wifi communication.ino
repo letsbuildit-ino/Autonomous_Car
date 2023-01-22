@@ -2,8 +2,8 @@
 #include <WebServer.h>
 #include <esp32cam.h>
  
-const char* WIFI_SSID = "DIGI_106918";
-const char* WIFI_PASS = "ddccef96";
+const char* WIFI_SSID = "xyz"; // edit in it your wifi ssid and password !!
+const char* WIFI_PASS = "xyz";
 
 int pin1 = 2;
 int pin2 = 14;

@@ -113,6 +113,7 @@ void loop(){
       processCounters();
       executeDecodedCommand();
       processCounters();
+      uflag=1;
   }else{
     decodedcommand();
   }

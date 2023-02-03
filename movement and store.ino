@@ -103,7 +103,7 @@ void loop(){
   
   if (uflag>1){
     processCounters();
-      while (counter1<100){
+      while (counter1<40){
         counter1=0;
         ccommand="forward";
         csymbolR=" +";
@@ -177,7 +177,7 @@ void executeDecodedCommand(){
     if(uflag==2){
       while(counter2>20){
         Serial.print("");
-        ccommand="right";
+        ccommand="left";
         csymbolR=" +";
         csymbolL=" +";
         left();        
@@ -195,7 +195,7 @@ void executeDecodedCommand(){
     else if(uflag==4){
       while(counter1>20){
         Serial.print("");
-        ccommand="right";
+        ccommand="extremeleft";
         csymbolR=" +";
         csymbolL=" +";
         extremeleft();        
@@ -204,7 +204,7 @@ void executeDecodedCommand(){
     else{
       while(counter1>20){
         Serial.print("");
-        ccommand="right";
+        ccommand="extremeright";
         csymbolR=" +";
         csymbolL=" +";
         extremeright();        
